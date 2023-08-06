@@ -1,0 +1,19 @@
+﻿<Window x:Class="MedievalStrategyGameWPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MedievalStrategyGameWPF"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Rectangle Name="P1StartSquare" Fill="Blue" HorizontalAlignment="Left" Height="100" Margin="300,154,0,0" Stroke="Black" VerticalAlignment="Top" Width="100"/>
+        <Rectangle Name="P2StartSquare" Fill="Red" HorizontalAlignment="Left" Height="100" Margin="400,154,0,0" Stroke="Black" VerticalAlignment="Top" Width="100"/>
+        <TextBlock Name="P1StartSquareCount" HorizontalAlignment="Left" Margin="325,196,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontWeight="Bold" FontSize="20"/>
+        <TextBlock Name="P2StartSquareCount" HorizontalAlignment="Left" Margin="425,196,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontWeight="Bold" FontSize="20"/>
+        <Button Name="NextTurn" Content="Next turn" HorizontalAlignment="Left" Margin="98,130,0,0" VerticalAlignment="Top" Height="43" Width="70" Click="NextTurn_Click"/>
+        <Button Name="P1Attack" Content="P1 attack" HorizontalAlignment="Left" Margin="98,184,0,0" VerticalAlignment="Top" Height="43" Width="70" Click="Attack_Click"/>
+        <Button Name="P2Attack" Content="P2 attack" HorizontalAlignment="Left" Margin="98,244,0,0" VerticalAlignment="Top" Height="43" Width="70" Click="Attack_Click"/>
+
+    </Grid>
+</Window>
