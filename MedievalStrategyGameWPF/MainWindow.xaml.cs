@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MedievalStrategyGameWPF.Classes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,43 +21,43 @@ namespace MedievalStrategyGameWPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        int p1Army = 0;
-        int p2Army = 0;
-        int p1ArmyGrow = 1;
-        int p2ArmyGrow = 1;
-        SolidColorBrush blueFill = new SolidColorBrush(Color.FromRgb(0, 0, 255));
-        SolidColorBrush redFill = new SolidColorBrush(Color.FromRgb(255, 0, 0));
+        double attackDisadv = 0.8;
+        SolidColorBrush blueFill = Brushes.Blue;
+        SolidColorBrush redFill = Brushes.Red;
+        Player p1;
+        Player p2;
 
         public MainWindow()
         {
             InitializeComponent();
 
-            P1StartSquareCount.Text = p1Army.ToString();
-            P1StartSquare.Fill = blueFill;
+            p1 = new Player(Brushes.Blue, "Alice");
+            p2 = new Player(Brushes.Red, "Bob");
 
-            P2StartSquareCount.Text = p2Army.ToString();
-            P2StartSquare.Fill = redFill;
+            updateTextBlocks();
+
+            P1Attack.Content = p1.name;
+            P2Attack.Content = p2.name;
         }
 
         private void NextTurn_Click(object sender, RoutedEventArgs e)
         {
             // Production
-            p1Army += p1ArmyGrow;
-            p2Army += p2ArmyGrow;
+            p1.Produce();
+            p2.Produce();
 
-            P1StartSquareCount.Text = p1Army.ToString();
-            P2StartSquareCount.Text = p2Army.ToString();
+            updateTextBlocks();
         }
 
         private void Attack_Click(object sender, RoutedEventArgs e)
         {
             var but = (Button)sender;
-            string attacker = but.Name;
-            string defender = attacker == "P1Attack" ? "P2Attack" : "P1Attack";
-            int attackerArmy = attacker == "P1Attack" ? p1Army : p2Army;
-            int defenderArmy = attacker == "P1Attack" ? p2Army : p1Army;
+            string attacker = (string)but.Content;
+            string defender = attacker == p1.name ? p2.name : p1.name;
+            int attackerArmy = attacker == p1.name ? p1.armySize : p2.armySize;
+            int defenderArmy = attacker == p1.name ? p2.armySize : p1.armySize;
 
-            attackerArmy = (int)Math.Round(attackerArmy * 0.8);
+            attackerArmy = (int)Math.Round(attackerArmy * attackDisadv);
 
             // Attacker won the gamme
             if (attackerArmy > defenderArmy)
@@ -64,7 +65,7 @@ namespace MedievalStrategyGameWPF
                 attackerArmy -= defenderArmy;
                 defenderArmy = 0;
 
-                if (attacker == "P1Attack")
+                if (attacker == p1.name)
                     P2StartSquare.Fill = blueFill;
                 else
                     P1StartSquare.Fill = redFill;
@@ -76,24 +77,29 @@ namespace MedievalStrategyGameWPF
                 attackerArmy = 0;
             }
 
-            if (attacker == "P1Attack")
+            if (attacker == p1.name)
             {
-                p1Army = attackerArmy;
-                p2Army = defenderArmy;
+                p1.armySize = attackerArmy;
+                p2.armySize = defenderArmy;
             }
             else
             {
-                p2Army = attackerArmy;
-                p1Army = defenderArmy;
+                p2.armySize = attackerArmy;
+                p1.armySize = defenderArmy;
             }
 
-            P1StartSquareCount.Text = p1Army.ToString();
-            P2StartSquareCount.Text = p2Army.ToString();
+            updateTextBlocks();
 
             if (attackerArmy > defenderArmy)
                 MessageBox.Show($"{attacker} won the gamme!");
             else
                 MessageBox.Show($"{attacker}'s attack has failed!");
+        }
+
+        private void updateTextBlocks()
+        {
+            P1StartSquareCount.Text = p1.armySize.ToString();
+            P2StartSquareCount.Text = p2.armySize.ToString();
         }
     }
 }
