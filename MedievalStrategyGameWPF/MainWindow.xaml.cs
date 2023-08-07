@@ -21,9 +21,11 @@ namespace MedievalStrategyGameWPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        double attackDisadv = 0.8;
         SolidColorBrush blueFill = Brushes.Blue;
         SolidColorBrush redFill = Brushes.Red;
+        Game game;
+
+        // Temporary
         Player p1;
         Player p2;
 
@@ -31,8 +33,10 @@ namespace MedievalStrategyGameWPF
         {
             InitializeComponent();
 
-            p1 = new Player(Brushes.Blue, "Alice");
-            p2 = new Player(Brushes.Red, "Bob");
+            game = new Game(new Player(Brushes.Blue, "Alice"),
+                            new Player(Brushes.Red, "Bob"));
+            p1 = game.players.First();
+            p2 = game.players.Last();
 
             updateTextBlocks();
 
@@ -42,9 +46,7 @@ namespace MedievalStrategyGameWPF
 
         private void NextTurn_Click(object sender, RoutedEventArgs e)
         {
-            // Production
-            p1.Produce();
-            p2.Produce();
+            game.NextTurn();
 
             updateTextBlocks();
         }
@@ -53,45 +55,20 @@ namespace MedievalStrategyGameWPF
         {
             var but = (Button)sender;
             string attacker = (string)but.Content;
-            string defender = attacker == p1.name ? p2.name : p1.name;
-            int attackerArmy = attacker == p1.name ? p1.armySize : p2.armySize;
-            int defenderArmy = attacker == p1.name ? p2.armySize : p1.armySize;
 
-            attackerArmy = (int)Math.Round(attackerArmy * attackDisadv);
+            var successAttackP = game.Attack(attacker);
 
-            // Attacker won the gamme
-            if (attackerArmy > defenderArmy)
+            updateTextBlocks();
+
+            if (successAttackP)
             {
-                attackerArmy -= defenderArmy;
-                defenderArmy = 0;
-
                 if (attacker == p1.name)
                     P2StartSquare.Fill = blueFill;
                 else
                     P1StartSquare.Fill = redFill;
-            }
-            // Attack failed
-            else 
-            {
-                defenderArmy -= attackerArmy;
-                attackerArmy = 0;
-            }
 
-            if (attacker == p1.name)
-            {
-                p1.armySize = attackerArmy;
-                p2.armySize = defenderArmy;
-            }
-            else
-            {
-                p2.armySize = attackerArmy;
-                p1.armySize = defenderArmy;
-            }
-
-            updateTextBlocks();
-
-            if (attackerArmy > defenderArmy)
                 MessageBox.Show($"{attacker} won the gamme!");
+            }
             else
                 MessageBox.Show($"{attacker}'s attack has failed!");
         }
