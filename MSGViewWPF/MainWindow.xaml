@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MSGViewWPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MedievalStrategyGame" Height="450" Width="800">
     <Grid>
         <Rectangle Name="P1StartSquare" Fill="Blue" HorizontalAlignment="Left" Height="100" Margin="300,154,0,0" Stroke="Black" VerticalAlignment="Top" Width="100"/>
         <Rectangle Name="P2StartSquare" Fill="Red" HorizontalAlignment="Left" Height="100" Margin="400,154,0,0" Stroke="Black" VerticalAlignment="Top" Width="100"/>
