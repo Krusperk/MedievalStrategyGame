@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
-
-namespace MedievalStrategyGameWPF.Classes
+﻿namespace MSGLogic
 {
-    internal class Game
+    public class Game
     {
         public List<Player> players;
         double attackDisadv = 0.8;
@@ -15,6 +8,12 @@ namespace MedievalStrategyGameWPF.Classes
         public Game(params Player[] playersArray)
         {
             this.players = playersArray.ToList();
+        }
+
+        public static Game CreateGame()
+        {
+            return new Game(new Player(PlayerColor.Blue, "Alice"),
+                            new Player(PlayerColor.Red, "Bob"));
         }
 
         /// <summary>

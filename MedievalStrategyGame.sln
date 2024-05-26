@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33122.133
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MedievalStrategyGame", "MedievalStrategyGame\MedievalStrategyGame.csproj", "{06345D18-6C36-4D95-81B3-FF0DCA96427C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MSGLogic", "MSGLogic\MSGLogic.csproj", "{93B5A7C0-FC8C-4E15-B066-30213971677E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MSGViewWPF", "MSGViewWPF\MSGViewWPF.csproj", "{1F9CFF0C-480F-4FBA-AE48-037CCC9F720F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{06345D18-6C36-4D95-81B3-FF0DCA96427C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{06345D18-6C36-4D95-81B3-FF0DCA96427C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{06345D18-6C36-4D95-81B3-FF0DCA96427C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{06345D18-6C36-4D95-81B3-FF0DCA96427C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93B5A7C0-FC8C-4E15-B066-30213971677E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93B5A7C0-FC8C-4E15-B066-30213971677E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93B5A7C0-FC8C-4E15-B066-30213971677E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93B5A7C0-FC8C-4E15-B066-30213971677E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F9CFF0C-480F-4FBA-AE48-037CCC9F720F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F9CFF0C-480F-4FBA-AE48-037CCC9F720F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F9CFF0C-480F-4FBA-AE48-037CCC9F720F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F9CFF0C-480F-4FBA-AE48-037CCC9F720F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
