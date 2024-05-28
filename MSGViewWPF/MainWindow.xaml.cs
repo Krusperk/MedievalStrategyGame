@@ -3,6 +3,8 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Configuration;
+using System;
 
 namespace MSGViewWPF
 {
@@ -13,6 +15,8 @@ namespace MSGViewWPF
     {
         SolidColorBrush blueFill = Brushes.Blue;
         SolidColorBrush redFill = Brushes.Red;
+        int rows;
+        int columns;
         Game game;
 
         // Temporary
@@ -22,15 +26,22 @@ namespace MSGViewWPF
         public MainWindow()
         {
             InitializeComponent();
-            game = Game.CreateGame();
-            
-            p1 = game.players.First();
-            p2 = game.players.Last();
+            ProcessConfig();
+            game = Game.CreateGame(rows, columns);
+
+            p1 = game.Players.First();
+            p2 = game.Players.Last();
 
             updateTextBlocks();
 
             P1Attack.Content = p1.name;
             P2Attack.Content = p2.name;
+        }
+
+        private void ProcessConfig()
+        {
+            rows = int.Parse(ConfigurationManager.AppSettings["rows"]);
+            columns = int.Parse(ConfigurationManager.AppSettings["columns"]);
         }
 
         private void NextTurn_Click(object sender, RoutedEventArgs e)
