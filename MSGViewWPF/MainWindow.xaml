@@ -7,6 +7,9 @@
         mc:Ignorable="d"
         Title="MedievalStrategyGame" Height="450" Width="800">
     <Grid>
+        <UniformGrid Name="Map">
+            
+        </UniformGrid>
         <Rectangle Name="P1StartSquare" Fill="Blue" HorizontalAlignment="Left" Height="100" Margin="300,154,0,0" Stroke="Black" VerticalAlignment="Top" Width="100"/>
         <Rectangle Name="P2StartSquare" Fill="Red" HorizontalAlignment="Left" Height="100" Margin="400,154,0,0" Stroke="Black" VerticalAlignment="Top" Width="100"/>
         <TextBlock Name="P1StartSquareCount" Foreground="White" HorizontalAlignment="Left" Margin="325,196,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontWeight="Bold" FontSize="20"/>
