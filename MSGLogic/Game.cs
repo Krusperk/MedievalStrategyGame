@@ -2,17 +2,20 @@
 {
     public class Game
     {
-        public List<Player> players;
+        public List<Player> Players { get; set; }
+        public Map Map { get; set; }
         double attackDisadv = 0.8;
 
-        public Game(params Player[] playersArray)
+        public Game(Map map, params Player[] playersArray)
         {
-            this.players = playersArray.ToList();
+            this.Players = playersArray.ToList();
+            this.Map = map;
         }
 
-        public static Game CreateGame()
+        public static Game CreateGame(int rows, int columns)
         {
-            return new Game(new Player(PlayerColor.Blue, "Alice"),
+            return new Game(new Map(rows, columns),
+                            new Player(PlayerColor.Blue, "Alice"),
                             new Player(PlayerColor.Red, "Bob"));
         }
 
@@ -21,7 +24,7 @@
         /// </summary>
         public void NextTurn()
         {
-            players.ForEach(p => p.Produce());
+            Players.ForEach(p => p.Produce());
         }
 
         /// <summary>
@@ -31,8 +34,8 @@
         /// <returns>Indicate if attack was successfull</returns>
         public bool Attack(string attacker)
         {
-            var p1 = players.First();
-            var p2 = players.Last();
+            var p1 = Players.First();
+            var p2 = Players.Last();
             bool success;
 
             int attackerArmy = attacker == p1.name ? p1.armySize : p2.armySize;
