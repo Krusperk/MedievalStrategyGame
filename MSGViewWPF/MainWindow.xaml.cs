@@ -5,6 +5,8 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Configuration;
 using System;
+using System.Windows.Shapes;
+using System.Xml.Schema;
 
 namespace MSGViewWPF
 {
@@ -26,9 +28,9 @@ namespace MSGViewWPF
         public MainWindow()
         {
             InitializeComponent();
-            ProcessConfig();
+            InitializeMap();
             game = Game.CreateGame(rows, columns);
-
+            
             p1 = game.Players.First();
             p2 = game.Players.Last();
 
@@ -38,11 +40,50 @@ namespace MSGViewWPF
             P2Attack.Content = p2.name;
         }
 
-        private void ProcessConfig()
+        private void InitializeMap()
         {
-            rows = int.Parse(ConfigurationManager.AppSettings["rows"]);
-            columns = int.Parse(ConfigurationManager.AppSettings["columns"]);
+            Map.Rows = int.Parse(GetValueFromConfig("Rows"));
+            Map.Columns = int.Parse(GetValueFromConfig("Columns"));
+
+            CreateMapTiles();
         }
+
+        //tileSize * r, tileSize * c, tileSize, tileSize
+        private void CreateMapTiles()
+        {
+            var tileSize = int.Parse(GetValueFromConfig("TileSize"));
+            for (int r = 0; r < Map.Rows; r++)
+            {
+                for (int c = 0; c < Map.Columns; c++)
+                {
+                    var grid = new Grid();
+                    var rectangle = new Rectangle();
+                    var textBlock = new TextBlock();
+                    grid.Children.Add(rectangle);
+                    grid.Children.Add(textBlock);
+
+                    textBlock.Text = "0";
+                    textBlock.VerticalAlignment = VerticalAlignment.Center;
+                    textBlock.HorizontalAlignment= HorizontalAlignment.Center;
+                    textBlock.Foreground = Brushes.White;
+                    textBlock.FontWeight = FontWeights.Bold;
+                    textBlock.FontSize = 20;
+
+                    rectangle.Fill = (r, c) switch
+                    {
+                        _ when r == 0 && c == Map.Columns - 1 => Brushes.Red,   // Top right corner spawn
+                        _ when r == Map.Rows - 1 && c == 0 => Brushes.Blue,     // Bottom left corner spawn
+                        _ => rectangle.Fill = Brushes.DarkGray                  // Undiscovered
+                    };
+
+                    rectangle.Stroke = Brushes.Black;
+
+                    Map.Children.Add(grid);
+                }
+            }
+        }
+
+        private string GetValueFromConfig(string key) => ConfigurationManager.AppSettings[key];
 
         private void NextTurn_Click(object sender, RoutedEventArgs e)
         {
@@ -62,10 +103,17 @@ namespace MSGViewWPF
 
             if (successAttackP)
             {
+                SolidColorBrush color;
                 if (attacker == p1.name)
-                    P2StartSquare.Fill = blueFill;
+                    color = blueFill;
                 else
-                    P1StartSquare.Fill = redFill;
+                    color = redFill;
+
+                foreach (Grid grid in Map.Children)
+                {
+                    var rect = (Rectangle)grid.Children[0];
+                    rect.Fill = color;
+                }
 
                 MessageBox.Show($"{attacker} won the gamme!");
             }
@@ -75,8 +123,15 @@ namespace MSGViewWPF
 
         private void updateTextBlocks()
         {
-            P1StartSquareCount.Text = p1.armySize.ToString();
-            P2StartSquareCount.Text = p2.armySize.ToString();
+            foreach (Grid tile in Map.Children)
+            {
+                var color = ((Rectangle)tile.Children[0]).Fill;
+
+                if (color == Brushes.Red)
+                    ((TextBlock)tile.Children[1]).Text = p1.armySize.ToString();
+                else if (color == Brushes.Blue)
+                    ((TextBlock)tile.Children[1]).Text = p2.armySize.ToString();
+            }
         }
     }
 }

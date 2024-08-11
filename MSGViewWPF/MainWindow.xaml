@@ -5,16 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MSGViewWPF"
         mc:Ignorable="d"
-        Title="MedievalStrategyGame" Height="450" Width="800">
+        Title="MedievalStrategyGame" Height="450" Width="800"
+        WindowStartupLocation="CenterScreen"
+        Background="LightGray">
     <Grid>
-        <Rectangle Name="P1StartSquare" Fill="Blue" HorizontalAlignment="Left" Height="100" Margin="300,154,0,0" Stroke="Black" VerticalAlignment="Top" Width="100"/>
-        <Rectangle Name="P2StartSquare" Fill="Red" HorizontalAlignment="Left" Height="100" Margin="400,154,0,0" Stroke="Black" VerticalAlignment="Top" Width="100"/>
-        <TextBlock Name="P1StartSquareCount" Foreground="White" HorizontalAlignment="Left" Margin="325,196,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontWeight="Bold" FontSize="20"/>
-        <TextBlock Name="P2StartSquareCount" Foreground="White" HorizontalAlignment="Left" Margin="425,196,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontWeight="Bold" FontSize="20"/>
+        <UniformGrid Name="Map" Margin="298,101,164,81"/>
         <Button Name="NextTurn" Content="Next turn" HorizontalAlignment="Left" Margin="98,130,0,0" VerticalAlignment="Top" Height="43" Width="70" Click="NextTurn_Click"/>
         <Button Name="P1Attack" Foreground="White" Background="Blue" HorizontalAlignment="Left" Margin="98,257,0,0" VerticalAlignment="Top" Height="43" Width="70" Click="Attack_Click"/>
         <Button Name="P2Attack" Foreground="White" Background="Red" HorizontalAlignment="Left" Margin="98,317,0,0" VerticalAlignment="Top" Height="43" Width="70" Click="Attack_Click"/>
         <TextBlock HorizontalAlignment="Left" Margin="108,236,0,0" TextWrapping="Wrap" Text="Attacks" VerticalAlignment="Top"/>
-
     </Grid>
 </Window>
