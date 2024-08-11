@@ -6,17 +6,22 @@
         public Map Map { get; set; }
         double attackDisadv = 0.8;
 
-        public Game(Map map, params Player[] playersArray)
+        public Game(Map map, List<Player> players)
         {
-            this.Players = playersArray.ToList();
+            this.Players = players;
             this.Map = map;
         }
 
         public static Game CreateGame(int rows, int columns)
         {
-            return new Game(new Map(rows, columns),
-                            new Player(PlayerColor.Blue, "Alice"),
-                            new Player(PlayerColor.Red, "Bob"));
+            var players = new List<Player>
+            {
+                new Player(PlayerColor.Blue, "Alice"),
+                new Player(PlayerColor.Red, "Bob")
+            };
+
+            return new Game(new Map(rows, columns, players),
+                            players);
         }
 
         /// <summary>
