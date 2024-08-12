@@ -15,8 +15,6 @@ namespace MSGViewWPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        int rows;
-        int columns;
         Game game;
         TileGUI[,] tiles;
 
