@@ -64,8 +64,6 @@ namespace MSGViewWPF
             }
         }
 
-        private string GetValueFromConfig(string key) => ConfigurationManager.AppSettings[key];
-
         private void NextTurn_Click(object sender, RoutedEventArgs e)
         {
             game.NextTurn();
