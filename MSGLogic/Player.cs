@@ -3,7 +3,7 @@
     public class Player
     {
         public string name;
-        PlayerColor color;
+        public PlayerColor color;
         public int armySize;
         int armyGrow;
 
