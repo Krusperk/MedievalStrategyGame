@@ -15,11 +15,10 @@ namespace MSGViewWPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        SolidColorBrush blueFill = Brushes.Blue;
-        SolidColorBrush redFill = Brushes.Red;
         int rows;
         int columns;
         Game game;
+        TileGUI[,] tiles;
 
         // Temporary
         Player p1;
@@ -28,11 +27,13 @@ namespace MSGViewWPF
         public MainWindow()
         {
             InitializeComponent();
-            
+
             game = Game.CreateGame();
             p1 = game.Players.First();
             p2 = game.Players.Last();
 
+            InitializeMap();
+            
             updateTextBlocks();
 
             P1Attack.Content = p1.name;
@@ -51,33 +52,18 @@ namespace MSGViewWPF
         private void CreateMapTiles()
         {
             var tileSize = int.Parse(GetValueFromConfig("TileSize"));
+            tiles = new TileGUI[Map.Rows, Map.Columns];
             for (int r = 0; r < Map.Rows; r++)
             {
                 for (int c = 0; c < Map.Columns; c++)
                 {
-                    var grid = new Grid();
-                    var rectangle = new Rectangle();
-                    var textBlock = new TextBlock();
-                    grid.Children.Add(rectangle);
-                    grid.Children.Add(textBlock);
-
-                    textBlock.Text = "0";
-                    textBlock.VerticalAlignment = VerticalAlignment.Center;
-                    textBlock.HorizontalAlignment= HorizontalAlignment.Center;
-                    textBlock.Foreground = Brushes.White;
-                    textBlock.FontWeight = FontWeights.Bold;
-                    textBlock.FontSize = 20;
-
-                    rectangle.Fill = (r, c) switch
+                    var player = (r, c) switch
                     {
-                        _ when r == 0 && c == Map.Columns - 1 => Brushes.Red,   // Top right corner spawn
-                        _ when r == Map.Rows - 1 && c == 0 => Brushes.Blue,     // Bottom left corner spawn
-                        _ => rectangle.Fill = Brushes.DarkGray                  // Undiscovered
+                        _ when r == 0 && c == Map.Columns - 1 => p1,    // Top right corner spawn
+                        _ when r == Map.Rows - 1 && c == 0 => p2,       // Bottom left corner spawn
+                        _ => null                                       // Undiscovered
                     };
-
-                    rectangle.Stroke = Brushes.Black;
-
-                    Map.Children.Add(grid);
+                    tiles[r, c] = new TileGUI(player, Map);
                 }
             }
         }
@@ -104,9 +90,9 @@ namespace MSGViewWPF
             {
                 SolidColorBrush color;
                 if (attacker == p1.name)
-                    color = blueFill;
+                    color = Brushes.Blue;
                 else
-                    color = redFill;
+                    color = Brushes.Red;
 
                 foreach (Grid grid in Map.Children)
                 {
