@@ -40,8 +40,8 @@ namespace MSGViewWPF
 
         private void InitializeMap()
         {
-            Map.Rows = int.Parse(GetValueFromConfig("Rows"));
-            Map.Columns = int.Parse(GetValueFromConfig("Columns"));
+            Map.Rows = game.Map.Tiles.GetLength(0);
+            Map.Columns = game.Map.Tiles.GetLength(1);
 
             CreateMapTiles();
         }
