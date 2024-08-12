@@ -46,10 +46,8 @@ namespace MSGViewWPF
             CreateMapTiles();
         }
 
-        //tileSize * r, tileSize * c, tileSize, tileSize
         private void CreateMapTiles()
         {
-            var tileSize = int.Parse(GetValueFromConfig("TileSize"));
             tiles = new TileGUI[Map.Rows, Map.Columns];
             for (int r = 0; r < Map.Rows; r++)
             {
