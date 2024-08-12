@@ -28,9 +28,8 @@ namespace MSGViewWPF
         public MainWindow()
         {
             InitializeComponent();
-            InitializeMap();
-            game = Game.CreateGame(rows, columns);
             
+            game = Game.CreateGame();
             p1 = game.Players.First();
             p2 = game.Players.Last();
 

@@ -1,4 +1,6 @@
-﻿namespace MSGLogic
+﻿using System.Configuration;
+
+namespace MSGLogic
 {
     public class Game
     {
@@ -12,8 +14,11 @@
             this.Map = map;
         }
 
-        public static Game CreateGame(int rows, int columns)
+        public static Game CreateGame()
         {
+            int rows = int.Parse(GetValueFromConfig("Rows"));
+            int columns = int.Parse(GetValueFromConfig("Columns"));
+
             var players = new List<Player>
             {
                 new Player(PlayerColor.Blue, "Alice"),
@@ -23,6 +28,8 @@
             return new Game(new Map(rows, columns, players),
                             players);
         }
+
+        private static string GetValueFromConfig(string key) => ConfigurationManager.AppSettings[key];
 
         /// <summary>
         /// Elemental step of game progression
