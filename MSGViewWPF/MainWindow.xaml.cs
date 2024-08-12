@@ -102,14 +102,15 @@ namespace MSGViewWPF
 
         private void updateTextBlocks()
         {
-            foreach (Grid tile in Map.Children)
+            foreach (TileGUI tile in tiles)
             {
-                var color = ((Rectangle)tile.Children[0]).Fill;
+                var color = tile.rectangle.Fill;
 
-                if (color == Brushes.Red)
-                    ((TextBlock)tile.Children[1]).Text = p1.armySize.ToString();
-                else if (color == Brushes.Blue)
-                    ((TextBlock)tile.Children[1]).Text = p2.armySize.ToString();
+                tile.textBlock.Text = color == Brushes.Red
+                                        ? p1.armySize.ToString()
+                                    : color == Brushes.Blue
+                                        ? p2.armySize.ToString()
+                                        : "";
             }
         }
     }
